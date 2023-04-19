@@ -102,6 +102,7 @@ dist
 
 #angular
 .angular/
+.angular/cache/
 
 # vuepress v2.x temp and cache directory
 .temp

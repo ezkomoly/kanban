@@ -14,10 +14,10 @@ import { MainViewComponent } from './pages/main-view/main-view.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BoardsComponent } from './components/boards/boards.component';
 import { BoardBarComponent } from './components/board-bar/board-bar.component';
-import { MainButtonComponent } from './components/main-button/main-button.component';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
 import { ColumnFormComponent } from './components/column-form/column-form.component';
+import { FabComponent } from './components/fab/fab.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +26,10 @@ import { ColumnFormComponent } from './components/column-form/column-form.compon
     NavbarComponent,
     BoardsComponent,
     BoardBarComponent,
-    MainButtonComponent,
     DrawerComponent,
     TaskFormComponent,
     ColumnFormComponent,
+    FabComponent,
   ],
   imports: [
     BrowserModule,

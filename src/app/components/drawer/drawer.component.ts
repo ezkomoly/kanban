@@ -10,14 +10,25 @@ import { TaskDrawerService } from 'src/app/services/task-drawer.service';
 export class DrawerComponent {
   @ViewChild('drawer') public drawer: MatDrawer;
 
+  drawerOpened = false;
+
   constructor(private _taskDrawerService: TaskDrawerService) {
 
    }
 
   ngOnInit(): void {
-    this._taskDrawerService.drawerToggleSubject.subscribe(() => {
-      console.log(this.drawer)
-      this.drawer.toggle();
-    });
+    this._taskDrawerService.getDrawerState().subscribe((state) => {
+      this.drawerOpened = state;
+    })
   }
+
+  drawerClosed(){
+    this._taskDrawerService.setDrawerState(false);
+  }
+
+  toggleDrawer(){
+    this.drawerOpened = !this.drawerOpened;
+    this._taskDrawerService.setDrawerState(this.drawerOpened);
+  }
+
 }

@@ -15,6 +15,7 @@ export class BoardsComponent implements OnInit{
   changes: Changes[] = [];
   saveButtonVisible: boolean = false;
   editingColumn: Column | null = null;
+  prevColumnName: string = '';
 
 
   constructor(private _columnsService: ColumnsService, private _taskService: TasksService) { }
@@ -51,12 +52,15 @@ export class BoardsComponent implements OnInit{
   }
 
   columnNameChange(column: Column) {
+    this.prevColumnName = column.name;
     this.editingColumn = column;
   }
 
 
   onColumnNameBlur(){
-    this._columnsService.updateColumnName(this.editingColumn!.id, this.editingColumn!.name).subscribe();
+    if(this.editingColumn!.name !== this.prevColumnName) {
+      this._columnsService.updateColumnName(this.editingColumn!.id, this.editingColumn!.name).subscribe();
+    }
     this.editingColumn = null;
   }
   
