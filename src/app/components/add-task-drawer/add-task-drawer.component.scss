@@ -1,0 +1,17 @@
+.my-container {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    background: none;
+}
+.my-drawer-content {
+    display: flex;
+    top: 0%;
+    align-items: center;
+    justify-content: center;
+}
+.my-drawer {
+    padding: 30px;
+    height: 100%;
+    background-color: transparent;
+}
