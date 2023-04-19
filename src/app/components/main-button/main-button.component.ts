@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FabModel } from 'src/app/models/fab.model';
 import { speedDialFabAnimations } from './main-button.animations'
 import { TaskDrawerService } from 'src/app/services/task-drawer.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main-button',
@@ -9,7 +10,10 @@ import { TaskDrawerService } from 'src/app/services/task-drawer.service';
   styleUrls: ['./main-button.component.scss'],
   animations: speedDialFabAnimations
 })
-export class MainButtonComponent {
+export class MainButtonComponent implements OnInit{
+
+  @ViewChild('drawer') drawer: MatDrawer
+
   fabButtons: FabModel[] = [
     { icon: 'add_circle_outline', tooltip: 'Add new Task', key: 1 },
     { icon: 'view_headline', tooltip: 'Add new Column', key: 2 },
@@ -18,13 +22,21 @@ export class MainButtonComponent {
   ];
   buttons: FabModel[] = [];
   fabTogglerState = 'inactive';
+  drawerState = false;
 
   constructor(private _taskDrawerService: TaskDrawerService) { }
+
+  ngOnInit(): void {
+    this._taskDrawerService.getDrawerState().subscribe((state) => {
+      this.drawerState = state;
+    })
+  }
 
   showItems(){
     this.fabTogglerState = 'active';
     this.buttons = this.fabButtons;
   }
+
 
   hideItems(){
     this.fabTogglerState = 'inactive';
@@ -40,7 +52,7 @@ export class MainButtonComponent {
     switch(btn.key){
       case 1:
         console.log('Add new Task');
-        this._taskDrawerService.toggle()
+        this._taskDrawerService.setDrawerState(!this.drawerState);
         break;
       case 2:
         console.log('Add new Column');

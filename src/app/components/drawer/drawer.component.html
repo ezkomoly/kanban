@@ -1,5 +1,5 @@
 <mat-drawer-container class="my-container">
-    <mat-drawer #drawer class="my-drawer" mode="over" position="start">
+    <mat-drawer #drawer class="my-drawer" mode="over" position="start" [opened]="drawerOpened" (closed)="drawerClosed()">
         <app-task-form></app-task-form>
     </mat-drawer>
     <app-boards></app-boards>
