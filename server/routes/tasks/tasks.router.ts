@@ -10,7 +10,6 @@ tasksRouter.get('/', async (req, res) => {
 });
 
 tasksRouter.put('/:id', async (req, res) => {
-    console.log('request is here')
     const idTask: number = +(req.params.id);
     const idColumn: number = +(req.body.idColumn);
     res.status(200).send(await taskService.updateTaskRelation(idTask, idColumn));
