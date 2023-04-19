@@ -17,5 +17,8 @@ export class ColumnsService {
     return this._httpClient.get<Column[]>('http://localhost:4000/columns');
   }
 
+  updateColumnName(id: number, name: string): Observable<Column> {
+    return this._httpClient.put<Column>(`http://localhost:4000/columns/${id}`, { name });
+  }
 
 }

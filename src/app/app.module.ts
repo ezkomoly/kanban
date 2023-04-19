@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MainViewComponent } from './pages/main-view/main-view.component';
@@ -14,7 +15,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BoardsComponent } from './components/boards/boards.component';
 import { BoardBarComponent } from './components/board-bar/board-bar.component';
 import { MainButtonComponent } from './components/main-button/main-button.component';
-import { AddTaskDrawerComponent } from './components/add-task-drawer/add-task-drawer.component';
+import { DrawerComponent } from './components/drawer/drawer.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
+import { ColumnFormComponent } from './components/column-form/column-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { AddTaskDrawerComponent } from './components/add-task-drawer/add-task-dr
     BoardsComponent,
     BoardBarComponent,
     MainButtonComponent,
-    AddTaskDrawerComponent,
+    DrawerComponent,
+    TaskFormComponent,
+    ColumnFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,7 @@ import { AddTaskDrawerComponent } from './components/add-task-drawer/add-task-dr
     DragDropModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatButtonModule,
     MatTooltipModule,
     MatSidenavModule,

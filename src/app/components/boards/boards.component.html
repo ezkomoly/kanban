@@ -4,7 +4,14 @@
     <div class="board-wrapper">
         <div class="board-columns" cdkDropListGroup>
             <div class="board-column" *ngFor="let column of object">
-                <div class="column-title">{{ column.name }}</div>
+                <div class="column-title" (click)="columnNameChange(column)">
+                    <ng-container *ngIf="!editingColumn || editingColumn.id !== column.id">
+                    {{ column.name }}
+                    </ng-container>
+                    <ng-container *ngIf="editingColumn && editingColumn.id === column.id">
+                        <input type="text" [(ngModel)]="column.name" (blur)="onColumnNameBlur()">
+                    </ng-container>
+                </div>
                 <div 
                     class="tasks-container"
                     cdkDropList

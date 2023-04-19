@@ -15,6 +15,16 @@ export class ColumnService {
         return data;
     }
 
+    async updateColumnName(id: number, name: string){
+        const data = await db.columns.update({
+            where: {id},
+            data: {
+                name
+            }
+        });
+        return data;
+    }
+
 
 
 

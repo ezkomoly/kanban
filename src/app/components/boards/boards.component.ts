@@ -4,7 +4,6 @@ import { ColumnsService } from 'src/app/services/columns.service';
 import { Column, Task } from 'src/app/models/column.model';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Changes } from 'src/app/models/changes.model';
-import { TaskDrawerService } from 'src/app/services/task-drawer.service';
 
 @Component({
   selector: 'app-boards',
@@ -15,6 +14,7 @@ export class BoardsComponent implements OnInit{
   object: Column[] = [];
   changes: Changes[] = [];
   saveButtonVisible: boolean = false;
+  editingColumn: Column | null = null;
 
 
   constructor(private _columnsService: ColumnsService, private _taskService: TasksService) { }
@@ -50,6 +50,16 @@ export class BoardsComponent implements OnInit{
 
   }
 
+  columnNameChange(column: Column) {
+    this.editingColumn = column;
+  }
+
+
+  onColumnNameBlur(){
+    this._columnsService.updateColumnName(this.editingColumn!.id, this.editingColumn!.name).subscribe();
+    this.editingColumn = null;
+  }
+  
   updateTask(idColumn: number, idTask: number): void {
     //this._taskService.updateTaskRelation(idColumn, idTask).subscribe();
     console.log(this.changes)
