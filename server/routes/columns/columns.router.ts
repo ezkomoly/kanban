@@ -10,7 +10,6 @@ columnsRouter.get('/', async (req, res) => {
 });
 
 columnsRouter.put('/:id', async (req, res) => {
-    console.log(req.body);
     const { id } = req.params;
     const { name } = req.body;
     res.status(200).json(await columnService.updateColumnName(Number(id), name));

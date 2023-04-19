@@ -16,7 +16,6 @@ export class TasksService {
 
 
   updateTaskRelation(idColumn: number, idTask: number): Observable<any> {
-    console.log(idColumn, idTask)
     return this._httpClient.put(`http://localhost:4000/tasks/${idTask}`, { idColumn }, this.httpOptions).pipe();
   }
 
