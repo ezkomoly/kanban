@@ -26,7 +26,6 @@ export class DrawerComponent {
     this._taskDrawerService.setDrawerState(false);
   }
 
-
   toggleDrawer(){
     this.drawerOpened = !this.drawerOpened;
     this._taskDrawerService.setDrawerState(this.drawerOpened);
