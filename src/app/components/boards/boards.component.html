@@ -3,7 +3,7 @@
     <app-board-bar></app-board-bar>
     <div class="board-wrapper">
         <div class="board-columns" cdkDropListGroup>
-            <div class="board-column" *ngFor="let column of object">
+            <div class="board-column" *ngFor="let column of columnObject">
                 <div class="column-title" (click)="columnNameChange(column)">
                     <ng-container *ngIf="!editingColumn || editingColumn.id !== column.id">
                     {{ column.name }}
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
+            <div class="board-bottom">Trash here</div>
         </div>
     </div>
 </div>
-

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragMove, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ColumnsService } from 'src/app/services/columns.service';
 import { Column, Task } from 'src/app/models/column.model';
 import { TasksService } from 'src/app/services/tasks.service';
@@ -11,17 +11,12 @@ import { Changes } from 'src/app/models/changes.model';
   styleUrls: ['./boards.component.scss']
 })
 export class BoardsComponent implements OnInit{
-  object: Column[] = [];
+  columnObject: Column[] = [];
   changes: Changes[] = [];
   saveButtonVisible: boolean = false;
   editingColumn: Column | null = null;
   prevColumnName: string = '';
-  newTask: Task = {
-    id: 0,
-    title: 'title',
-    text: 'text',
-  }
-
+  trash = []
 
   constructor(private _columnsService: ColumnsService, private _taskService: TasksService) { }
 
@@ -30,17 +25,14 @@ export class BoardsComponent implements OnInit{
   }
 
   getColumns() {
-    this._columnsService.getColumns().subscribe(res => {
-      this.object = res
-    })
-
-  }
-
-  dropNew(event: CdkDragDrop<Task>) {
-    console.log(event)
+    this._columnsService.getColumns()
+    this._columnsService.columnsBehaviorSubject.subscribe((columns: Column[]) => {
+      this.columnObject = columns;
+    });
   }
 
   drop(event: CdkDragDrop<Task[]>, id: number) {
+    console.log('Normal drop')
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -59,6 +51,10 @@ export class BoardsComponent implements OnInit{
 
   }
 
+  dropTrash(event: CdkDragDrop<any>) {
+    console.log('Trash drop')
+  }
+
   columnNameChange(column: Column) {
     this.prevColumnName = column.name;
     this.editingColumn = column;
@@ -69,12 +65,15 @@ export class BoardsComponent implements OnInit{
     if(this.editingColumn!.name !== this.prevColumnName) {
       this._columnsService.updateColumnName(this.editingColumn!.id, this.editingColumn!.name).subscribe();
     }
+    const index = this.columnObject.findIndex((obj => obj.id === this.editingColumn!.id));
+    this.columnObject[index].name = this.editingColumn!.name;
     this.editingColumn = null;
+    this._columnsService.columnsBehaviorSubject.next(this.columnObject);
   }
   
   updateTask(idColumn: number, idTask: number): void {
     //this._taskService.updateTaskRelation(idColumn, idTask).subscribe();
-    console.log(this.changes)
   }
 
 }
+

@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { db } from '../../utils/db.connector';
 
 
@@ -30,6 +31,17 @@ export class TaskService {
             }
         })
         return task
+    }
+
+    async createTask(task: Prisma.TasksCreateInput){
+        try {
+            const newTask = await db.tasks.create({
+                data: task
+            });
+            return newTask;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 

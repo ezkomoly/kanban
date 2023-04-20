@@ -1,10 +1,31 @@
-<h1 mat-dialog-title>CICI JO</h1>
-<mat-dialog-content>
-    CICI
-    CICI
-    CICI
-    CICI
-    CICI
-    CICI
-    CICI
+<h1 mat-dialog-title>Creating a new task</h1>
+<mat-dialog-content [formGroup]="newTaskForm" style="display: flex; flex-direction: column;">
+
+    <mat-form-field>
+        <mat-label>Title of the Task</mat-label>
+        <input matInput placeholder="Title" formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Description of the Task</mat-label>
+        <textarea matInput placeholder="Description" formControlName="text"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Column to be placed in</mat-label>
+        <mat-select formControlName="columnObject">
+            <mat-option *ngFor="let column of columns" [value]="column">{{ column.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+
+
+    <mat-dialog-actions>
+
+        <button mat-raised-button (click)="onClose()">Close</button>
+        <button mat-raised-button color="primary" (click)="onCreate()">Create</button>
+
+    </mat-dialog-actions>
+
 </mat-dialog-content>
