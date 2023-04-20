@@ -8,16 +8,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { MainViewComponent } from './pages/main-view/main-view.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BoardsComponent } from './components/boards/boards.component';
 import { BoardBarComponent } from './components/board-bar/board-bar.component';
-import { DrawerComponent } from './components/drawer/drawer.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
 import { ColumnFormComponent } from './components/column-form/column-form.component';
 import { FabComponent } from './components/fab/fab.component';
+import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +27,10 @@ import { FabComponent } from './components/fab/fab.component';
     NavbarComponent,
     BoardsComponent,
     BoardBarComponent,
-    DrawerComponent,
     TaskFormComponent,
     ColumnFormComponent,
     FabComponent,
+    NewTaskDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,9 +41,10 @@ import { FabComponent } from './components/fab/fab.component';
     FormsModule,
     MatButtonModule,
     MatTooltipModule,
+    MatDialogModule,
     MatSidenavModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

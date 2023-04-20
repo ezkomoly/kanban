@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DrawerComponent } from './drawer.component';
+import { NewTaskDialogComponent } from './new-task-dialog.component';
 
-describe('DrawerComponent', () => {
-  let component: DrawerComponent;
-  let fixture: ComponentFixture<DrawerComponent>;
+describe('NewTaskDialogComponent', () => {
+  let component: NewTaskDialogComponent;
+  let fixture: ComponentFixture<NewTaskDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DrawerComponent ]
+      declarations: [ NewTaskDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DrawerComponent);
+    fixture = TestBed.createComponent(NewTaskDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

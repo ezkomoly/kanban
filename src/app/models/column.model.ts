@@ -1,8 +1,8 @@
 export class Column {
     constructor(
-        public id: number,
         public name: string,
-        public tasks: Task[]
+        public tasks: Task[],
+        public id: number,
     ){}
 }
 

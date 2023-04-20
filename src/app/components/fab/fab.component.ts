@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FabModel } from 'src/app/models/fab.model';
 import { speedDialFabAnimations } from './fab.animations'
-import { TaskDrawerService } from 'src/app/services/task-drawer.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { NewTaskDialogComponent } from '../new-task-dialog/new-task-dialog.component';
+
 
 @Component({
   selector: 'app-fab',
@@ -24,19 +26,15 @@ export class FabComponent implements OnInit{
   fabTogglerState = 'inactive';
   drawerState = false;
 
-  constructor(private _taskDrawerService: TaskDrawerService) { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this._taskDrawerService.getDrawerState().subscribe((state) => {
-      this.drawerState = state;
-    })
   }
 
   showItems(){
     this.fabTogglerState = 'active';
     this.buttons = this.fabButtons;
   }
-
 
   hideItems(){
     this.fabTogglerState = 'inactive';
@@ -47,12 +45,24 @@ export class FabComponent implements OnInit{
     this.fabTogglerState === 'inactive' ? this.showItems() : this.hideItems();
   }
 
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '500px';
+    dialogConfig.height = '500px';
+    dialogConfig.data = {
+      id: 1,
+      title: 'Angular For Beginners'
+    };
+    this.dialog.open(NewTaskDialogComponent, dialogConfig);
+  }
 
   onFabClick(btn: FabModel){
     switch(btn.key){
       case 1:
         console.log('Add new Task');
-        this._taskDrawerService.setDrawerState(!this.drawerState);
+        this.openDialog();
         break;
       case 2:
         console.log('Add new Column');

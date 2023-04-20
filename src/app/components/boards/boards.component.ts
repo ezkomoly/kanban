@@ -16,6 +16,11 @@ export class BoardsComponent implements OnInit{
   saveButtonVisible: boolean = false;
   editingColumn: Column | null = null;
   prevColumnName: string = '';
+  newTask: Task = {
+    id: 0,
+    title: 'title',
+    text: 'text',
+  }
 
 
   constructor(private _columnsService: ColumnsService, private _taskService: TasksService) { }
@@ -31,6 +36,9 @@ export class BoardsComponent implements OnInit{
 
   }
 
+  dropNew(event: CdkDragDrop<Task>) {
+    console.log(event)
+  }
 
   drop(event: CdkDragDrop<Task[]>, id: number) {
     if (event.previousContainer === event.container) {
