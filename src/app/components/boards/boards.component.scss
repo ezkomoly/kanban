@@ -62,8 +62,8 @@
     bottom: 0;
     width: 100%;
     border: 1px solid red;
-    display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 
@@ -81,6 +81,10 @@
     0 3px 14px 2px rgba(0, 0, 0, 0.05);
 }
 
+.delete-icon {
+    color: red;
+    float: right;
+}
 
 .tasks-container {
     flex-grow: 1;

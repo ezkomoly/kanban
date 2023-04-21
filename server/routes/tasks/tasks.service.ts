@@ -44,5 +44,10 @@ export class TaskService {
         }
     }
 
+    async deleteTask(id: number){
+        await db.tasks.delete({
+            where: { id }
+        });
+    }
 
 }

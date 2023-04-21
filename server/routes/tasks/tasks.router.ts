@@ -20,3 +20,9 @@ tasksRouter.post('/', async (req, res) => {
     const task = req.body;
     res.status(200).send(await taskService.createTask(task));
 });
+
+tasksRouter.delete('/:id', async (req, res) => {
+    const id: number = +(req.params.id);
+    await taskService.deleteTask(id);
+    res.status(200).send({ message: "Task deleted" });
+});

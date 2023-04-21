@@ -19,11 +19,12 @@
                     (cdkDropListDropped)="drop($event, column.id)">
                     <div class="task" *ngFor="let task of column.tasks" cdkDrag [cdkDragData]="{column}">
                         {{ task.title }}
+                        <i class="material-icons delete-icon" (click)="taskDelete(task.id)">close</i>
                         <p>{{ task.text }}</p>
                     </div>
                 </div>
             </div>
-            <div class="board-bottom">Trash here</div>
         </div>
     </div>
 </div>
+<button mat-raised-button>Save</button>

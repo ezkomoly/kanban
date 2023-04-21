@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, CdkDragMove, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragRelease, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ColumnsService } from 'src/app/services/columns.service';
 import { Column, Task } from 'src/app/models/column.model';
 import { TasksService } from 'src/app/services/tasks.service';
@@ -16,7 +16,7 @@ export class BoardsComponent implements OnInit{
   saveButtonVisible: boolean = false;
   editingColumn: Column | null = null;
   prevColumnName: string = '';
-  trash = []
+  trashStatus: boolean = false;
 
   constructor(private _columnsService: ColumnsService, private _taskService: TasksService) { }
 
@@ -32,7 +32,6 @@ export class BoardsComponent implements OnInit{
   }
 
   drop(event: CdkDragDrop<Task[]>, id: number) {
-    console.log('Normal drop')
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -46,13 +45,17 @@ export class BoardsComponent implements OnInit{
       // Only changing a column counts as a change, hence why this is in the else statement.
       this.changes.push({ idColumn: id, idTask: event.container.data[event.currentIndex].id }) 
       this.updateTask(id, event.container.data[event.currentIndex].id);
-
     }
 
   }
 
-  dropTrash(event: CdkDragDrop<any>) {
-    console.log('Trash drop')
+
+  taskDelete(id: number) {
+    this.columnObject.forEach((column: Column) => {
+      column.tasks = column.tasks.filter((task: Task) => task.id !== id);
+    });
+    this._taskService.deleteTask(id).subscribe();
+    this._columnsService.columnsBehaviorSubject.next(this.columnObject);
   }
 
   columnNameChange(column: Column) {
