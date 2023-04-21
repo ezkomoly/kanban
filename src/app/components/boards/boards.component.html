@@ -2,29 +2,7 @@
 <div class="board">
     <app-board-bar></app-board-bar>
     <div class="board-wrapper">
-        <div class="board-columns" cdkDropListGroup>
-            <div class="board-column" *ngFor="let column of columnObject">
-                <div class="column-title" (click)="columnNameChange(column)">
-                    <ng-container *ngIf="!editingColumn || editingColumn.id !== column.id">
-                    {{ column.name }}
-                    </ng-container>
-                    <ng-container *ngIf="editingColumn && editingColumn.id === column.id">
-                        <input type="text" [(ngModel)]="column.name" (blur)="onColumnNameBlur()">
-                    </ng-container>
-                </div>
-                <div 
-                    class="tasks-container"
-                    cdkDropList
-                    [cdkDropListData]="column.tasks"
-                    (cdkDropListDropped)="drop($event, column.id)">
-                    <div class="task" *ngFor="let task of column.tasks" cdkDrag [cdkDragData]="{column}">
-                        {{ task.title }}
-                        <i class="material-icons delete-icon" (click)="taskDelete(task.id)">close</i>
-                        <p>{{ task.text }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-tasks (changes)="addChange($event)"></app-tasks>
     </div>
 </div>
 <button *ngIf="saveButtonVisible" mat-raised-button color="primary" class="save-button" (click)="saveChanges()">Save Changes</button>

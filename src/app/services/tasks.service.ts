@@ -15,7 +15,7 @@ export class TasksService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private _httpClient: HttpClient, private _columnService: ColumnsService) { }
+  constructor(private _httpClient: HttpClient) { }
 
 
   updateTaskRelation(changes: Changes[]): Observable<any> {

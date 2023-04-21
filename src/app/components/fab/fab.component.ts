@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FabModel } from 'src/app/models/fab.model';
 import { speedDialFabAnimations } from './fab.animations'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -15,7 +15,8 @@ import { Column } from 'src/app/models/column.model';
 })
 export class FabComponent implements OnInit{
 
-  columns: Column[]
+  // columns: Column[]
+  @Input() columns: Column[] = [];
 
 
   fabButtons: FabModel[] = [
@@ -28,11 +29,7 @@ export class FabComponent implements OnInit{
   fabTogglerState = 'inactive';
   drawerState = false;
 
-  constructor(private dialog: MatDialog, private _columnsService: ColumnsService) {
-    this._columnsService.getColumns().subscribe((columns: Column[]) => {
-      this.columns = columns;
-    });
-  }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
