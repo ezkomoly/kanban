@@ -1,80 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { ColumnsService } from 'src/app/services/columns.service';
-import { Column, Task } from 'src/app/models/column.model';
-import { TasksService } from 'src/app/services/tasks.service';
 import { Changes } from 'src/app/models/changes.model';
-
+import { TasksService } from 'src/app/services/tasks.service';
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html',
   styleUrls: ['./boards.component.scss']
 })
 export class BoardsComponent implements OnInit{
-  object: Column[] = [];
-  changes: Changes[] = [];
   saveButtonVisible: boolean = false;
-  editingColumn: Column | null = null;
-  prevColumnName: string = '';
-  newTask: Task = {
-    id: 0,
-    title: 'title',
-    text: 'text',
-  }
+  changes: Changes[] = [];
 
-
-  constructor(private _columnsService: ColumnsService, private _taskService: TasksService) { }
+  constructor(private _taskService: TasksService) { }
 
   ngOnInit(): void {
-    this.getColumns();
   }
 
-  getColumns() {
-    this._columnsService.getColumns().subscribe(res => {
-      this.object = res
-    })
-
+  addChange(change: Changes){
+    this.changes.push(change);
+    this.saveButtonVisible = true;
   }
 
-  dropNew(event: CdkDragDrop<Task>) {
-    console.log(event)
+  saveChanges(){
+    // Send a request with the changes array.
+    this._taskService.updateTaskRelation(this.changes).subscribe();
+    this.changes = [];
+    this.saveButtonVisible = false;
   }
 
-  drop(event: CdkDragDrop<Task[]>, id: number) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-      // Creates an array of object of all changes that were made.
-      // Only changing a column counts as a change, hence why this is in the else statement.
-      this.changes.push({ idColumn: id, idTask: event.container.data[event.currentIndex].id }) 
-      this.updateTask(id, event.container.data[event.currentIndex].id);
-
-    }
-
-  }
-
-  columnNameChange(column: Column) {
-    this.prevColumnName = column.name;
-    this.editingColumn = column;
-  }
-
-
-  onColumnNameBlur(){
-    if(this.editingColumn!.name !== this.prevColumnName) {
-      this._columnsService.updateColumnName(this.editingColumn!.id, this.editingColumn!.name).subscribe();
-    }
-    this.editingColumn = null;
-  }
-  
-  updateTask(idColumn: number, idTask: number): void {
-    //this._taskService.updateTaskRelation(idColumn, idTask).subscribe();
-    console.log(this.changes)
-  }
 
 }
+

@@ -11,6 +11,7 @@ export class Task {
     constructor(
         public title: string,
         public text: string,
-        public id: number
+        public id: number,
+        public columnId?: number,
     ){}
 }

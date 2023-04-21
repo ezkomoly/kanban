@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { db } from '../../utils/db.connector';
 
 
@@ -32,5 +33,33 @@ export class TaskService {
         return task
     }
 
+    async createTask(task: Prisma.TasksCreateInput){
+        try {
+            const newTask = await db.tasks.create({
+                data: task
+            });
+            return newTask;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async deleteTask(id: number){
+        await db.tasks.delete({
+            where: { id }
+        });
+    }
+
+    async updateMany(data: any){
+        const responseData = db.$transaction(async(db) => {
+            for(let i of data){
+                await db.tasks.update({
+                    where: { id: i.idTask },
+                    data: { columnId: i.idColumn }
+                })
+            }
+        });
+        return responseData
+    }
 
 }

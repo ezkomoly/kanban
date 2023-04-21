@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FabModel } from 'src/app/models/fab.model';
 import { speedDialFabAnimations } from './fab.animations'
-import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewTaskDialogComponent } from '../new-task-dialog/new-task-dialog.component';
+import { ColumnsService } from 'src/app/services/columns.service';
+import { Column } from 'src/app/models/column.model';
 
 
 @Component({
@@ -14,7 +15,9 @@ import { NewTaskDialogComponent } from '../new-task-dialog/new-task-dialog.compo
 })
 export class FabComponent implements OnInit{
 
-  @ViewChild('drawer') drawer: MatDrawer
+  // columns: Column[]
+  @Input() columns: Column[] = [];
+
 
   fabButtons: FabModel[] = [
     { icon: 'add_circle_outline', tooltip: 'Add new Task', key: 1 },
@@ -49,12 +52,9 @@ export class FabComponent implements OnInit{
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '500px';
-    dialogConfig.height = '500px';
-    dialogConfig.data = {
-      id: 1,
-      title: 'Angular For Beginners'
-    };
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.direction = 'ltr';
+    dialogConfig.data = this.columns;
     this.dialog.open(NewTaskDialogComponent, dialogConfig);
   }
 

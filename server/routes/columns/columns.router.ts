@@ -6,6 +6,7 @@ export const columnsRouter = express.Router();
 
 
 columnsRouter.get('/', async (req, res) => {
+    console.log("A request was made to /columns")
     res.status(200).json(await columnService.getAllColumns());
 });
 

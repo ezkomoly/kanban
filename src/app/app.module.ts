@@ -7,18 +7,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { MainViewComponent } from './pages/main-view/main-view.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BoardsComponent } from './components/boards/boards.component';
 import { BoardBarComponent } from './components/board-bar/board-bar.component';
-import { TaskFormComponent } from './components/task-form/task-form.component';
 import { ColumnFormComponent } from './components/column-form/column-form.component';
 import { FabComponent } from './components/fab/fab.component';
 import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-dialog.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +30,10 @@ import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-di
     NavbarComponent,
     BoardsComponent,
     BoardBarComponent,
-    TaskFormComponent,
     ColumnFormComponent,
     FabComponent,
     NewTaskDialogComponent,
+    TasksComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,8 +42,12 @@ import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-di
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatTooltipModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
     MatDialogModule,
     MatSidenavModule,
   ],
