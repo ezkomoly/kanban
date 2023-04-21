@@ -50,4 +50,16 @@ export class TaskService {
         });
     }
 
+    async updateMany(data: any){
+        const responseData = db.$transaction(async(db) => {
+            for(let i of data){
+                await db.tasks.update({
+                    where: { id: i.idTask },
+                    data: { columnId: i.idColumn }
+                })
+            }
+        });
+        return responseData
+    }
+
 }

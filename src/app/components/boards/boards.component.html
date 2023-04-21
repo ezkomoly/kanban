@@ -27,4 +27,4 @@
         </div>
     </div>
 </div>
-<button mat-raised-button>Save</button>
+<button *ngIf="saveButtonVisible" mat-raised-button color="primary" class="save-button" (click)="saveChanges()">Save Changes</button>

@@ -43,12 +43,17 @@ export class BoardsComponent implements OnInit{
       );
       // Creates an array of object of all changes that were made.
       // Only changing a column counts as a change, hence why this is in the else statement.
+      this.saveButtonVisible = true;
       this.changes.push({ idColumn: id, idTask: event.container.data[event.currentIndex].id }) 
-      this.updateTask(id, event.container.data[event.currentIndex].id);
     }
-
   }
 
+  saveChanges(){
+    // Send a request with the changes array.
+    this.updateTask();
+    this.changes = [];
+    this.saveButtonVisible = false;
+  }
 
   taskDelete(id: number) {
     this.columnObject.forEach((column: Column) => {
@@ -74,8 +79,8 @@ export class BoardsComponent implements OnInit{
     this._columnsService.columnsBehaviorSubject.next(this.columnObject);
   }
   
-  updateTask(idColumn: number, idTask: number): void {
-    //this._taskService.updateTaskRelation(idColumn, idTask).subscribe();
+  updateTask(): void {
+    this._taskService.updateTaskRelation(this.changes).subscribe();
   }
 
 }

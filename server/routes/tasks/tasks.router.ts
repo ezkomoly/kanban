@@ -10,10 +10,8 @@ tasksRouter.get('/', async (req, res) => {
     res.status(200).send(await taskService.getAllTasks());
 });
 
-tasksRouter.put('/:id', async (req, res) => {
-    const idTask: number = +(req.params.id);
-    const idColumn: number = +(req.body.idColumn);
-    res.status(200).send(await taskService.updateTaskRelation(idTask, idColumn));
+tasksRouter.put('/', async (req, res) => {
+    res.status(200).send(await taskService.updateMany(req.body));
 });
 
 tasksRouter.post('/', async (req, res) => {

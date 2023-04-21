@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ColumnsService } from './columns.service';
 import { Task } from '../models/column.model';
+import { Changes } from '../models/changes.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class TasksService {
   constructor(private _httpClient: HttpClient, private _columnService: ColumnsService) { }
 
 
-  updateTaskRelation(idColumn: number, idTask: number): Observable<any> {
-    return this._httpClient.put(`http://localhost:4000/tasks/${idTask}`, { idColumn }, this.httpOptions).pipe();
+  updateTaskRelation(changes: Changes[]): Observable<any> {
+    return this._httpClient.put(`http://localhost:4000/tasks/`, changes, this.httpOptions).pipe();
   }
 
   createTask(title: string, text: string, columnId: number): Observable<any>{
