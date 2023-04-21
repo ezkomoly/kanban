@@ -24,6 +24,10 @@ export class TasksComponent implements OnInit {
     this.getColumns()
   }
 
+  isInLastColumn(task: Task) {
+    return this.columnObject[this.columnObject.length - 1].tasks.includes(task)
+  } 
+
   getColumns() {
     this._columnsService.getColumns().subscribe()
     this._columnsService.columnsBehaviorSubject.subscribe((columns: Column[]) => {

@@ -5,7 +5,10 @@
             {{ column.name }}
             </ng-container>
             <ng-container *ngIf="editingColumn && editingColumn.id === column.id">
-                <input type="text" [(ngModel)]="column.name" (blur)="onColumnNameBlur()">
+                <mat-form-field>
+                <mat-label>Column title</mat-label>
+                <input matInput type="text" [(ngModel)]="column.name" (blur)="onColumnNameBlur()">
+            </mat-form-field>
             </ng-container>
         </div>
         <div 
@@ -15,8 +18,11 @@
             (cdkDropListDropped)="drop($event, column.id)">
             <div class="task" *ngFor="let task of column.tasks" cdkDrag [cdkDragData]="{column}">
                 {{ task.title }}
-                <mat-icon class="delete-icon">close</mat-icon>
-                <!-- <i class="material-icons delete-icon" (click)="taskDelete(task.id)">close</i> -->
+                <mat-icon 
+                [ngStyle]="{'color': (isInLastColumn(task)) ? 'green' : 'red'}" 
+                class="task-icon" (click)="taskDelete(task.id)">
+                {{[isInLastColumn(task) ? 'done' : 'close']}}
+            </mat-icon>
                 <p>{{ task.text }}</p>
             </div>
         </div>

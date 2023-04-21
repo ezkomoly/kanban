@@ -54,6 +54,7 @@ export class FabComponent implements OnInit{
     dialogConfig.autoFocus = true;
     dialogConfig.hasBackdrop = true;
     dialogConfig.direction = 'ltr';
+    dialogConfig.minWidth = '400px';
     dialogConfig.data = this.columns;
     this.dialog.open(NewTaskDialogComponent, dialogConfig);
   }

@@ -12,12 +12,11 @@ import { tap } from 'rxjs';
   styleUrls: ['./new-task-dialog.component.scss']
 })
 export class NewTaskDialogComponent {
+  title: string = ''
+  text: string | undefined = ''
+
   columns: Column[] = [];
-  newTaskForm = new FormGroup({
-    title: new FormControl(),
-    text: new FormControl(),
-    columnObject: new FormControl(),
-  });
+  newTaskForm: FormGroup
   newTaskId: number
 
 
@@ -29,14 +28,21 @@ export class NewTaskDialogComponent {
     @Inject(MAT_DIALOG_DATA) data: Column[]
     ){
     this.columns = data;
+    this.newTaskForm = new FormGroup({
+      title: new FormControl(this.title, [Validators.required]),
+      text: new FormControl(this.text),
+      columnObject: new FormControl('', [Validators.required]),
+    });
   }
 
   onClose(){
     this.dialogRef.close();
   }
 
+
   onCreate(){
-    this._tasksService.createTask(this.newTaskForm.value.title, this.newTaskForm.value.text, this.newTaskForm.value.columnObject.id).pipe(
+    if(this.newTaskForm.invalid) return;
+    this._tasksService.createTask(this.newTaskForm.value.title!, this.newTaskForm.value.columnObject.id, this.newTaskForm.value.text!).pipe(
       tap((task: Task) => {
         this.columns[this.columns.indexOf(this.newTaskForm.value.columnObject)].tasks.push({
           id: task.id,
@@ -51,5 +57,14 @@ export class NewTaskDialogComponent {
     this.dialogRef.close();
   }
 
+  get taskTitle(){
+    return this.newTaskForm.get('title');
+  }
+  get taskText(){
+    return this.newTaskForm.get('text');
+  }
+  get taskColumn(){
+    return this.newTaskForm.get('columnObject');
+  }
 
 }

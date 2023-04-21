@@ -22,8 +22,8 @@ export class TasksService {
     return this._httpClient.put(`http://localhost:4000/tasks/`, changes, this.httpOptions).pipe();
   }
 
-  createTask(title: string, text: string, columnId: number): Observable<any>{
-    return this._httpClient.post(`http://localhost:4000/tasks`, {title, text, columnId}, this.httpOptions).pipe();
+  createTask(title: string, columnId: number, text?: string): Observable<any>{
+    return this._httpClient.post(`http://localhost:4000/tasks`, {title, columnId, text}, this.httpOptions).pipe();
   }
 
   deleteTask(id: number): Observable<any>{

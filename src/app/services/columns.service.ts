@@ -23,4 +23,8 @@ export class ColumnsService {
     return this._httpClient.put<Column>(`http://localhost:4000/columns/${id}`, { name });
   }
 
+  createColumn(name: string): Observable<Column> {
+    return this._httpClient.post<Column>('http://localhost:4000/columns', { name });
+  }
+
 }
