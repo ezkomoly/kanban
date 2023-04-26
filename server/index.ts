@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { tasksRouter } from './routes/tasks/tasks.router';
 import { columnsRouter } from './routes/columns/columns.router';
+import { boardsRouter } from './routes/boards/boards.router';
 dotenv.config();
 
 
@@ -20,7 +21,7 @@ app.use(router)
 
 router.use('/tasks', tasksRouter);
 router.use('/columns', columnsRouter);
-
+router.use('/boards', boardsRouter);
 
 
 app.listen(process.env.PORT, () => {

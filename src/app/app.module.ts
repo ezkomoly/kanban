@@ -12,28 +12,24 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
-import { MainViewComponent } from './pages/main-view/main-view.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { BoardsComponent } from './components/boards/boards.component';
-import { BoardBarComponent } from './components/board-bar/board-bar.component';
-import { ColumnFormComponent } from './components/column-form/column-form.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { MainViewComponent } from './components/main-view/main-view.component';
+import { BoardComponent } from './components/board/board.component';
+import { LoadingService } from './components/loading/loading.service';
 import { FabComponent } from './components/fab/fab.component';
 import { NewTaskDialogComponent } from './components/new-task-dialog/new-task-dialog.component';
-import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoadingComponent,
     MainViewComponent,
-    NavbarComponent,
-    BoardsComponent,
-    BoardBarComponent,
-    ColumnFormComponent,
+    BoardComponent,
     FabComponent,
     NewTaskDialogComponent,
-    TasksComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +46,9 @@ import { TasksComponent } from './components/tasks/tasks.component';
     MatSelectModule,
     MatDialogModule,
     MatSidenavModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [],
+  providers: [LoadingService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

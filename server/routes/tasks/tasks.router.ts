@@ -10,12 +10,13 @@ tasksRouter.get('/', async (req, res) => {
     res.status(200).send(await taskService.getAllTasks());
 });
 
-tasksRouter.put('/', async (req, res) => {
-    res.status(200).send(await taskService.updateMany(req.body));
+tasksRouter.put('/:id', async (req, res) => {
+    res.status(200).send(await taskService.updateTaskRelation(+req.params.id, req.body.newColumnId));
 });
 
 tasksRouter.post('/', async (req, res) => {
     const task = req.body;
+    console.log(task)
     res.status(200).send(await taskService.createTask(task));
 });
 

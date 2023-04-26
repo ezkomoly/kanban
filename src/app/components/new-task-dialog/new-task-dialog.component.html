@@ -13,8 +13,8 @@
 
     <mat-form-field>
         <mat-label>Column to be placed in</mat-label>
-        <mat-select formControlName="columnObject">
-            <mat-option *ngFor="let column of columns" [value]="column">{{ column.name }}</mat-option>
+        <mat-select formControlName="column">
+            <mat-option *ngFor="let column of (columnNames$ | async)" value="{{ column.id }}">{{ column.name }}</mat-option>
         </mat-select>
     </mat-form-field>
 
@@ -24,7 +24,7 @@
     <mat-dialog-actions>
 
         <button mat-raised-button (click)="onClose()">Close</button>
-        <button mat-raised-button color="primary" (click)="onCreate()">Create</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Create</button>
 
     </mat-dialog-actions>
 
