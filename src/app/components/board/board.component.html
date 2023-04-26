@@ -1,0 +1,19 @@
+<div class="board-columns" cdkDropListGroup>
+    <div class="board-column" *ngFor="let column of columns$ | async">
+
+      <div class="column-title">
+        {{ column.name }}
+      </div>
+
+      <div class="tasks-container"
+      cdkDropList
+      [cdkDropListData]="column.tasks"
+      (cdkDropListDropped)="drop($event, column.id)">
+        <div class="task" *ngFor="let task of column.tasks" cdkDrag [cdkDragData]="{column}">
+          {{ task.title }}
+          <mat-icon class="delete-icon" (click)="deleteTask(task)">close</mat-icon>
+          <p>{{ task.text }}</p>
+        </div>
+      </div>
+    </div>
+</div>

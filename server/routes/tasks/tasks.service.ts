@@ -36,7 +36,11 @@ export class TaskService {
     async createTask(task: Prisma.TasksCreateInput){
         try {
             const newTask = await db.tasks.create({
-                data: task
+                data: {
+                    title: task.title,
+                    text: task.text,
+                    columnId: +task.column
+                }
             });
             return newTask;
         } catch (error) {

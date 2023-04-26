@@ -1,8 +1,0 @@
-
-<div class="board">
-    <app-board-bar></app-board-bar>
-    <div class="board-wrapper">
-        <app-tasks (changes)="addChange($event)"></app-tasks>
-    </div>
-</div>
-<button *ngIf="saveButtonVisible" mat-raised-button color="primary" class="save-button" (click)="saveChanges()">Save Changes</button>

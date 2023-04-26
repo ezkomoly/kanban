@@ -1,5 +1,5 @@
-export class FabModel {
-  icon: string;
-  tooltip: string;
-  key: number;
-}
+export interface fabButton {
+    key: number;
+    icon: string;
+    tooltip: string;
+  }

@@ -1,0 +1,14 @@
+<div class="board">
+    <div class="board-bar">
+      <button mat-button color="warn" class="board-name" *ngFor="let board of (boards$ | async)">
+       <a routerLink="boards/{{ board.id }}">{{ board.name }}</a> 
+    </button>
+    </div>
+
+    <div class="board-wrapper">
+        <app-loading></app-loading>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<app-fab></app-fab>

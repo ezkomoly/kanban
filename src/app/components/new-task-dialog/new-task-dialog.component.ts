@@ -1,70 +1,47 @@
-import { Component, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TasksService } from 'src/app/services/tasks.service';
-import { Column, Task } from 'src/app/models/column.model';
-import { ColumnsService } from 'src/app/services/columns.service';
-import { tap } from 'rxjs';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { Column } from 'src/app/models/kanban.model';
+import { TasksStore } from 'src/app/services/tasks.store.service';
 
 @Component({
   selector: 'app-new-task-dialog',
   templateUrl: './new-task-dialog.component.html',
   styleUrls: ['./new-task-dialog.component.scss']
 })
-export class NewTaskDialogComponent {
-  title: string = ''
-  text: string | undefined = ''
+export class NewTaskDialogComponent implements OnInit{
 
-  columns: Column[] = [];
-  newTaskForm: FormGroup
-  newTaskId: number
+  columnNames$: Observable<any>
+  newTaskForm: FormGroup;
 
 
 
-  constructor(
-    private _tasksService: TasksService,
-    private _columnsService: ColumnsService,
-    private dialogRef: MatDialogRef<NewTaskDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data: Column[]
-    ){
-    this.columns = data;
+  constructor(private tasksStore: TasksStore, private dialogRef: MatDialogRef<NewTaskDialogComponent>) {
     this.newTaskForm = new FormGroup({
-      title: new FormControl(this.title, [Validators.required]),
-      text: new FormControl(this.text),
-      columnObject: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required]),
+      text: new FormControl(),
+      column: new FormControl("", [Validators.required]),
     });
   }
 
-  onClose(){
+  get f () { return this.newTaskForm.controls }
+
+  ngOnInit() {
+    this.columnNames$ = this.tasksStore.getAllCoulmnNames();
+  }
+
+  onSubmit() {
+    if(!this.newTaskForm.valid) return;
+    this.tasksStore.addTask(this.newTaskForm.value).subscribe();
+    this.dialogRef.close();
+
+
+  }
+
+  onClose() {
     this.dialogRef.close();
   }
 
-
-  onCreate(){
-    if(this.newTaskForm.invalid) return;
-    this._tasksService.createTask(this.newTaskForm.value.title!, this.newTaskForm.value.columnObject.id, this.newTaskForm.value.text!).pipe(
-      tap((task: Task) => {
-        this.columns[this.columns.indexOf(this.newTaskForm.value.columnObject)].tasks.push({
-          id: task.id,
-          title: task.title,
-          text: task.text,
-          columnId: task.columnId
-        })
-        this._columnsService.columnsBehaviorSubject.next(this.columns);
-      })
-    ).subscribe();
-    // Need to update the column behaviour subject, with the new task.
-    this.dialogRef.close();
-  }
-
-  get taskTitle(){
-    return this.newTaskForm.get('title');
-  }
-  get taskText(){
-    return this.newTaskForm.get('text');
-  }
-  get taskColumn(){
-    return this.newTaskForm.get('columnObject');
-  }
 
 }
